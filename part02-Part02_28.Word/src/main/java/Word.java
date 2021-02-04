@@ -8,4 +8,7 @@ public class Word {
 
     }
 
+    public static String word() {
+        return "This is a function";
+    }
 }
