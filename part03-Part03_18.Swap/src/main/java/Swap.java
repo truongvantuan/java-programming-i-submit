@@ -19,10 +19,16 @@ public class Swap {
         }
         System.out.println("");
 
+        int index1 = scanner.nextInt();
+        int index2 = scanner.nextInt();
+
+        int helper = array[index1];
+        array[index1] = array[index2];
+        array[index2] = helper;
+
         // Implement here
         // asking for the two indices
         // and then swapping them
-
         System.out.println("");
         index = 0;
         while (index < array.length) {
