@@ -22,6 +22,6 @@ public class Cube {
 
     @Override
     public String toString() {
-        return "The length of the edge is " + this.edgeLength + " and the volume " + (int) Math.pow(this.edgeLength, 3);
+        return "The length of the edge is " + this.edgeLength + " and the volume " + this.volume();
     }
 }
