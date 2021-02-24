@@ -9,6 +9,8 @@ public class Main {
 
         if (jackSparrow.equals(anotherSparrow)) {
             System.out.println("Songs are equal.");
+        } else {
+            System.out.println("Not same!");
         }
 
         if (jackSparrow.equals("Another object")) {
