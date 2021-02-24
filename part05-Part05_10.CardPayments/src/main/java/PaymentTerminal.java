@@ -21,6 +21,8 @@ public class PaymentTerminal {
         // an affordable meal costs 2.50 euros
         // increase the amount of cash by the price of an affordable mean and return the change
         // if the payment parameter is not large enough, no meal is sold and the method should return the whole payment
+
+        
         double remain = 0;
         if (payment >= 2.50) {
             remain = payment - 2.50;
