@@ -16,12 +16,15 @@ public class Main {
             }
 
             System.out.println("Publication year:");
-            int publicationYear = Integer.valueOf(scanner.nextLine());
-            Book book = new Book(name, publicationYear);
-            books.add(book);
+            int year = Integer.parseInt(scanner.nextLine());
 
+            Book addBook = new Book(name, year);
+
+            if (!books.contains(addBook)) {
+                books.add(addBook);
+            }
         }
-        
+
         // NB! Don't alter the line below!
         System.out.println("Thank you! Books added: " + books.size());
     }
