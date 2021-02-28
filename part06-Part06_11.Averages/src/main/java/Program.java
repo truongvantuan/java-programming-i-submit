@@ -10,5 +10,7 @@ public class Program {
 
         UserInterface ui = new UserInterface(register, scanner);
         ui.start();
+
     }
+
 }
