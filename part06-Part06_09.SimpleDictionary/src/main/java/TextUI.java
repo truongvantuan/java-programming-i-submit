@@ -1,57 +1,66 @@
+
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class TextUI {
 
-    private final Scanner scanner;
-    private final SimpleDictionary simpleDictionary;
+    private Scanner scanner;
+    private SimpleDictionary dictionary;
 
-    public TextUI(Scanner scanner, SimpleDictionary simpleDictionary) {
+    public TextUI(Scanner scanner, SimpleDictionary dictionary) {
         this.scanner = scanner;
-        this.simpleDictionary = simpleDictionary;
+        this.dictionary = dictionary;
     }
 
     public void start() {
-        final List<String> validCommands = new ArrayList<>();
-        validCommands.add("end");
-        validCommands.add("add");
-        validCommands.add("search");
 
         while (true) {
             System.out.print("Command: ");
             String input = scanner.nextLine();
-            if (!validCommands.contains(input)) {
-                System.out.println("Unknown command");
-            }
 
-            if ("end".equalsIgnoreCase(input)) {
-                System.out.println("Bye bye!");
+            if (input.equals("end")) {
                 break;
             }
 
-            if ("add".equalsIgnoreCase(input)) {
-                System.out.print("Word: ");
-                final String word = scanner.nextLine();
-
-                System.out.print("Translation: ");
-
-                final String translation = scanner.nextLine();
-                simpleDictionary.add(word, translation);
-            }
-
-            if ("search".equalsIgnoreCase(input)) {
-                System.out.print("To be translated: ");
-                final String wordToTranslate = scanner.nextLine();
-                final String translation = simpleDictionary.translate(wordToTranslate);
-                if (translation == null) {
-                    System.out.print(MessageFormat.format("Word {0} was not found", wordToTranslate));
-                } else {
-                    System.out.println(translation);
-                }
-            }
-
+            processCommand(input);
+            System.out.println("");
         }
+        System.out.println("Bye Bye!");
+    }
+
+    public void processCommand(String command) {
+        if (command.equals("add")) {
+            add();
+        } else if (command.equals("search")) {
+            search();
+        } else {
+            System.out.println("Unknow commmand");
+        }
+    }
+
+    public void add() {
+        System.out.print("Word: ");
+        String word = scanner.nextLine();
+
+        System.out.print("Translation: ");
+        String translation = scanner.nextLine();
+
+        this.dictionary.add(word, translation);
+
+    }
+
+    public void search() {
+        System.out.print("To be translated: ");
+
+        String word = scanner.nextLine();
+
+        String translatedWord = this.dictionary.translate(word);
+
+        if (translatedWord == null) {
+            System.out.println(MessageFormat.format("Word {0} was not found", word));
+        } else {
+            System.out.println("Translation: " + translatedWord);
+        }
+
     }
 }
