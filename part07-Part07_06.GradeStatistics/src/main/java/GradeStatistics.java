@@ -5,10 +5,12 @@ public class GradeStatistics {
 
     private ArrayList<Integer> points;
     private ArrayList<Integer> grades;
+    private int numberPassingPoints;
 
     public GradeStatistics() {
         this.points = new ArrayList<>();
         this.grades = new ArrayList<>();
+        this.numberPassingPoints = 0;
     }
 
     public ArrayList<Integer> getPoints() {
@@ -19,37 +21,44 @@ public class GradeStatistics {
         return this.grades;
     }
 
-    public double averagePoint() {
-        int sumPoint = 0;
-        sumPoint = this.points.stream().map((point) -> point).reduce(sumPoint, Integer::sum);
-        return (double) sumPoint / this.points.size();
+    public void addPoints(int point) {
+        this.points.add(point);
+        this.grades.add(pointToGrade(point));
+        if (isPassingPoints(point)) {
+            numberPassingPoints++;
+        }
     }
 
-    public double averagePassingPoint() {
-        int sumPoint = 0;
-        int numberPassingPoint = 0;
+    public double averagePoint() {
+        int sumPoints = 0;
+
+        for (Integer point : this.points) {
+            sumPoints += point;
+        }
+
+        return (double) sumPoints / this.points.size();
+    }
+
+    public double averagePassingPoints() {
+        int sumPoints = 0;
+        int numberPassingPoints = 0;
 
         for (Integer point : this.points) {
             if (point >= 50) {
-                sumPoint += point;
-                numberPassingPoint++;
+                sumPoints += point;
+                numberPassingPoints++;
             }
         }
 
-        if (numberPassingPoint == 0) {
-            return sumPoint;
+        if (numberPassingPoints == 0) {
+            return sumPoints;
         }
 
-        return (double) sumPoint / numberPassingPoint;
+        return (double) sumPoints / numberPassingPoints;
     }
 
-    public double passPercent() {
-        int numberPass = 0;
-        for (Integer point : points) {
-            numberPass = point >= 50 ? numberPass + 1 : numberPass;
-        }
-
-        return (double) numberPass * 100 / this.points.size();
+    public double passPercentage() {
+        return (double) this.numberPassingPoints * 100 / this.points.size();
     }
 
     public int pointToGrade(int point) {
@@ -81,5 +90,9 @@ public class GradeStatistics {
             }
         }
         return count;
+    }
+
+    public boolean isPassingPoints(int point) {
+        return point >= 50;
     }
 }
